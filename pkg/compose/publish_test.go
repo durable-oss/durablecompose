@@ -26,8 +26,8 @@ import (
 	v1 "github.com/opencontainers/image-spec/specs-go/v1"
 	"gotest.tools/v3/assert"
 
-	"github.com/docker/compose/v5/internal"
-	"github.com/docker/compose/v5/pkg/api"
+	"github.com/durable_oss/durablecompose/internal"
+	"github.com/durable_oss/durablecompose/pkg/api"
 )
 
 func Test_createLayers(t *testing.T) {

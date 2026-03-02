@@ -24,8 +24,8 @@ import (
 	"github.com/moby/moby/client"
 	"golang.org/x/sync/errgroup"
 
-	"github.com/docker/compose/v5/pkg/api"
-	"github.com/docker/compose/v5/pkg/utils"
+	"github.com/durable_oss/durablecompose/pkg/api"
+	"github.com/durable_oss/durablecompose/pkg/utils"
 )
 
 func (s *composeService) Restart(ctx context.Context, projectName string, options api.RestartOptions) error {

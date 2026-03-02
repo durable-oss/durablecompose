@@ -30,7 +30,7 @@ import (
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/propagation"
 
-	"github.com/docker/compose/v5/internal"
+	"github.com/durable_oss/durablecompose/internal"
 )
 
 // prepareShellOut prepare a shell-out command to be ran by Compose

@@ -23,7 +23,7 @@ import (
 
 	"github.com/compose-spec/compose-go/v2/types"
 
-	"github.com/docker/compose/v5/pkg/api"
+	"github.com/durable_oss/durablecompose/pkg/api"
 )
 
 // maps a service with the services it depends on

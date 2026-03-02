@@ -12,7 +12,7 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
-PKG := github.com/docker/compose/v5
+PKG := github.com/durable_oss/durablecompose
 VERSION ?= $(shell git describe --match 'v[0-9]*' --dirty='.m' --always --tags)
 
 GO_LDFLAGS ?= -w -X ${PKG}/internal.Version=${VERSION}
@@ -44,21 +44,15 @@ endif
 BUILDX_CMD ?= docker buildx
 
 # DESTDIR overrides the output path for binaries and other artifacts
-# this is used by docker/docker-ce-packaging for the apt/rpm builds,
-# so it's important that the resulting binary ends up EXACTLY at the
-# path $DESTDIR/docker-compose when specified.
-#
-# See https://github.com/docker/docker-ce-packaging/blob/e43fbd37e48fde49d907b9195f23b13537521b94/rpm/SPECS/docker-compose-plugin.spec#L47
-#
 # By default, all artifacts go to subdirectories under ./bin/ in the
 # repo root, e.g. ./bin/build, ./bin/coverage, ./bin/release.
 DESTDIR ?=
 
 all: build
 
-.PHONY: build ## Build the compose cli-plugin
+.PHONY: build ## Build the durablecompose binary
 build:
-	GO111MODULE=on go build $(BUILD_FLAGS) -trimpath -tags "$(GO_BUILDTAGS)" -ldflags "$(GO_LDFLAGS)" -o "$(or $(DESTDIR),./bin/build)/docker-compose$(BINARY_EXT)" ./cmd
+	GO111MODULE=on go build $(BUILD_FLAGS) -trimpath -tags "$(GO_BUILDTAGS)" -ldflags "$(GO_LDFLAGS)" -o "$(or $(DESTDIR),./bin/build)/durablecompose$(BINARY_EXT)" ./cmd
 
 .PHONY: binary
 binary:
@@ -70,8 +64,7 @@ binary-with-coverage:
 
 .PHONY: install
 install: binary
-	mkdir -p ~/.docker/cli-plugins
-	install $(or $(DESTDIR),./bin/build)/docker-compose ~/.docker/cli-plugins/docker-compose
+	install $(or $(DESTDIR),./bin/build)/durablecompose /usr/local/bin/durablecompose
 
 .PHONY: e2e-compose
 e2e-compose: example-provider ## Run end to end local tests in plugin mode. Set E2E_TEST=TestName to run a single test

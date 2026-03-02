@@ -23,8 +23,8 @@ import (
 	"github.com/docker/cli/cli/command"
 	"github.com/spf13/cobra"
 
-	"github.com/docker/compose/v5/pkg/api"
-	"github.com/docker/compose/v5/pkg/compose"
+	"github.com/durable_oss/durablecompose/pkg/api"
+	"github.com/durable_oss/durablecompose/pkg/compose"
 )
 
 // validArgsFn defines a completion func to be returned to fetch completion options

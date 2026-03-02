@@ -24,7 +24,7 @@ import (
 
 	"github.com/moby/moby/client"
 
-	"github.com/docker/compose/v5/pkg/api"
+	"github.com/durable_oss/durablecompose/pkg/api"
 )
 
 func (s *composeService) Events(ctx context.Context, projectName string, options api.EventsOptions) error {

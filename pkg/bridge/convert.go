@@ -38,8 +38,8 @@ import (
 	"github.com/sirupsen/logrus"
 	"go.yaml.in/yaml/v4"
 
-	"github.com/docker/compose/v5/pkg/api"
-	"github.com/docker/compose/v5/pkg/utils"
+	"github.com/durable_oss/durablecompose/pkg/api"
+	"github.com/durable_oss/durablecompose/pkg/utils"
 )
 
 type ConvertOptions struct {

@@ -22,7 +22,7 @@ import (
 	"slices"
 	"strings"
 
-	"github.com/docker/compose/v5/cmd/compose"
+	"github.com/durable_oss/durablecompose/cmd/compose"
 )
 
 func getCompletionCommands() []string {

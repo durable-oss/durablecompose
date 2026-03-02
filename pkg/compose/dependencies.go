@@ -26,7 +26,7 @@ import (
 	"github.com/compose-spec/compose-go/v2/types"
 	"golang.org/x/sync/errgroup"
 
-	"github.com/docker/compose/v5/pkg/api"
+	"github.com/durable_oss/durablecompose/pkg/api"
 )
 
 // ServiceStatus indicates the status of a service

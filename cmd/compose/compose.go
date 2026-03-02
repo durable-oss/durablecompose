@@ -44,13 +44,13 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
 
-	"github.com/docker/compose/v5/cmd/display"
-	"github.com/docker/compose/v5/cmd/formatter"
-	"github.com/docker/compose/v5/internal/tracing"
-	"github.com/docker/compose/v5/pkg/api"
-	"github.com/docker/compose/v5/pkg/compose"
-	"github.com/docker/compose/v5/pkg/remote"
-	"github.com/docker/compose/v5/pkg/utils"
+	"github.com/durable_oss/durablecompose/cmd/display"
+	"github.com/durable_oss/durablecompose/cmd/formatter"
+	"github.com/durable_oss/durablecompose/internal/tracing"
+	"github.com/durable_oss/durablecompose/pkg/api"
+	"github.com/durable_oss/durablecompose/pkg/compose"
+	"github.com/durable_oss/durablecompose/pkg/remote"
+	"github.com/durable_oss/durablecompose/pkg/utils"
 )
 
 const (
@@ -432,8 +432,8 @@ func RootCommand(dockerCli command.Cli, backendOptions *BackendOptions) *cobra.C
 		dryRun   bool
 	)
 	c := &cobra.Command{
-		Short:            "Docker Compose",
-		Long:             "Define and run multi-container applications with Docker",
+		Short:            "DurableCompose",
+		Long:             "Define and run multi-container applications with Docker - A product of Durable Programming",
 		Use:              PluginName,
 		TraverseChildren: true,
 		// By default (no Run/RunE in parent c) for typos in subcommands, cobra displays the help of parent c but exit(0) !
@@ -447,7 +447,7 @@ func RootCommand(dockerCli command.Cli, backendOptions *BackendOptions) *cobra.C
 			_ = cmd.Help()
 			return dockercli.StatusError{
 				StatusCode: 1,
-				Status:     fmt.Sprintf("unknown docker command: %q", "compose "+args[0]),
+				Status:     fmt.Sprintf("unknown durablecompose command: %q", "durablecompose "+args[0]),
 			}
 		},
 		PersistentPreRunE: func(cmd *cobra.Command, args []string) error {
@@ -649,7 +649,7 @@ func RootCommand(dockerCli command.Cli, backendOptions *BackendOptions) *cobra.C
 
 	c.Flags().StringVar(&ansi, "ansi", "auto", `Control when to print ANSI control characters ("never"|"always"|"auto")`)
 	c.Flags().IntVar(&parallel, "parallel", -1, `Control max parallelism, -1 for unlimited`)
-	c.Flags().BoolVarP(&version, "version", "v", false, "Show the Docker Compose version information")
+	c.Flags().BoolVarP(&version, "version", "v", false, "Show the DurableCompose version information")
 	c.PersistentFlags().BoolVar(&dryRun, "dry-run", false, "Execute command in dry run mode")
 	c.Flags().MarkHidden("version") //nolint:errcheck
 	c.Flags().BoolVar(&noAnsi, "no-ansi", false, `Do not print ANSI control characters (DEPRECATED)`)

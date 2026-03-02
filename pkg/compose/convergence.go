@@ -39,9 +39,9 @@ import (
 	"go.opentelemetry.io/otel/trace"
 	"golang.org/x/sync/errgroup"
 
-	"github.com/docker/compose/v5/internal/tracing"
-	"github.com/docker/compose/v5/pkg/api"
-	"github.com/docker/compose/v5/pkg/utils"
+	"github.com/durable_oss/durablecompose/internal/tracing"
+	"github.com/durable_oss/durablecompose/pkg/api"
+	"github.com/durable_oss/durablecompose/pkg/utils"
 )
 
 const (

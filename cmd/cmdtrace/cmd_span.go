@@ -33,8 +33,8 @@ import (
 	"go.opentelemetry.io/otel/codes"
 	"go.opentelemetry.io/otel/trace"
 
-	commands "github.com/docker/compose/v5/cmd/compose"
-	"github.com/docker/compose/v5/internal/tracing"
+	commands "github.com/durable_oss/durablecompose/cmd/compose"
+	"github.com/durable_oss/durablecompose/internal/tracing"
 )
 
 // Setup should be called as part of the command's PersistentPreRunE

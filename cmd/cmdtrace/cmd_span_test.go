@@ -23,7 +23,7 @@ import (
 	"github.com/spf13/cobra"
 	flag "github.com/spf13/pflag"
 
-	commands "github.com/docker/compose/v5/cmd/compose"
+	commands "github.com/durable_oss/durablecompose/cmd/compose"
 )
 
 func TestGetFlags(t *testing.T) {

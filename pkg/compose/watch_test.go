@@ -31,10 +31,10 @@ import (
 	"go.uber.org/mock/gomock"
 	"gotest.tools/v3/assert"
 
-	"github.com/docker/compose/v5/internal/sync"
-	"github.com/docker/compose/v5/pkg/api"
-	"github.com/docker/compose/v5/pkg/mocks"
-	"github.com/docker/compose/v5/pkg/watch"
+	"github.com/durable_oss/durablecompose/internal/sync"
+	"github.com/durable_oss/durablecompose/pkg/api"
+	"github.com/durable_oss/durablecompose/pkg/mocks"
+	"github.com/durable_oss/durablecompose/pkg/watch"
 )
 
 type testWatcher struct {
@@ -188,4 +188,351 @@ func newFakeSyncer() *fakeSyncer {
 func (f *fakeSyncer) Sync(ctx context.Context, service string, paths []*sync.PathMapping) error {
 	f.synced <- paths
 	return nil
+}
+
+func TestWatchEventsErrorHandling(t *testing.T) {
+	t.Run("handles watcher errors", func(t *testing.T) {
+		ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+		defer cancel()
+
+		mockCtrl := gomock.NewController(t)
+		cli := mocks.NewMockCli(mockCtrl)
+		cli.EXPECT().Err().Return(streams.NewOut(os.Stderr)).AnyTimes()
+
+		proj := types.Project{
+			Name: "test-project",
+			Services: types.Services{
+				"test": {Name: "test"},
+			},
+		}
+
+		watcher := testWatcher{
+			events: make(chan watch.FileEvent),
+			errors: make(chan error),
+		}
+
+		syncer := newFakeSyncer()
+		service := composeService{
+			dockerCli: cli,
+			clock:     clockwork.NewFakeClock(),
+		}
+
+		go func() {
+			testErr := fmt.Errorf("test watcher error")
+			watcher.errors <- testErr
+			// Keep channel open - error is only returned when channel is closed
+		}()
+
+		// Start watching in a goroutine
+		errChan := make(chan error, 1)
+		go func() {
+			errChan <- service.watchEvents(ctx, &proj, api.WatchOptions{
+				LogTo: stdLogger{},
+			}, watcher, syncer, []watchRule{})
+		}()
+
+		// Wait briefly to ensure the error was logged, then verify watchEvents continues
+		time.Sleep(100 * time.Millisecond)
+		cancel()
+
+		// Verify it exits properly when context is canceled
+		select {
+		case err := <-errChan:
+			assert.NilError(t, err)
+		case <-time.After(2 * time.Second):
+			t.Error("watchEvents did not exit after context cancellation")
+		}
+	})
+
+	t.Run("handles context cancellation", func(t *testing.T) {
+		ctx, cancel := context.WithCancel(context.Background())
+
+		mockCtrl := gomock.NewController(t)
+		cli := mocks.NewMockCli(mockCtrl)
+		cli.EXPECT().Err().Return(streams.NewOut(os.Stderr)).AnyTimes()
+
+		proj := types.Project{
+			Name: "test-project",
+			Services: types.Services{
+				"test": {Name: "test"},
+			},
+		}
+
+		watcher := testWatcher{
+			events: make(chan watch.FileEvent),
+			errors: make(chan error),
+		}
+
+		syncer := newFakeSyncer()
+		service := composeService{
+			dockerCli: cli,
+			clock:     clockwork.NewFakeClock(),
+		}
+
+		errChan := make(chan error, 1)
+		go func() {
+			errChan <- service.watchEvents(ctx, &proj, api.WatchOptions{
+				LogTo: stdLogger{},
+			}, watcher, syncer, []watchRule{})
+		}()
+
+		cancel()
+
+		select {
+		case err := <-errChan:
+			assert.NilError(t, err)
+		case <-time.After(2 * time.Second):
+			t.Error("expected watchEvents to exit after context cancellation")
+		}
+	})
+
+	t.Run("handles large batch of events", func(t *testing.T) {
+		ctx, cancel := context.WithCancel(context.Background())
+		defer cancel()
+
+		mockCtrl := gomock.NewController(t)
+		cli := mocks.NewMockCli(mockCtrl)
+		cli.EXPECT().Err().Return(streams.NewOut(os.Stderr)).AnyTimes()
+		apiClient := mocks.NewMockAPIClient(mockCtrl)
+		cli.EXPECT().Client().Return(apiClient).AnyTimes()
+
+		proj := types.Project{
+			Name: "test-project",
+			Services: types.Services{
+				"test": {Name: "test"},
+			},
+		}
+
+		watcher := testWatcher{
+			events: make(chan watch.FileEvent, 2000),
+			errors: make(chan error),
+		}
+
+		syncer := newFakeSyncer()
+		clock := clockwork.NewFakeClock()
+		service := composeService{
+			dockerCli: cli,
+			clock:     clock,
+		}
+
+		go func() {
+			// Send 1500 events - more than the 1000 threshold
+			for i := 0; i < 1500; i++ {
+				watcher.events <- watch.NewFileEvent(fmt.Sprintf("/test/file%d", i))
+			}
+			time.Sleep(100 * time.Millisecond)
+			cancel()
+		}()
+
+		go func() {
+			_ = service.watchEvents(ctx, &proj, api.WatchOptions{
+				LogTo: stdLogger{},
+			}, watcher, syncer, []watchRule{})
+		}()
+
+		// Wait for processing
+		time.Sleep(200 * time.Millisecond)
+	})
+}
+
+func TestLoadDevelopmentConfig(t *testing.T) {
+	tempDir := t.TempDir()
+
+	tests := []struct {
+		name        string
+		service     types.ServiceConfig
+		project     *types.Project
+		wantErr     bool
+		errContains string
+	}{
+		{
+			name: "no x-develop extension",
+			service: types.ServiceConfig{
+				Name: "test",
+			},
+			project: &types.Project{
+				WorkingDir: tempDir,
+			},
+			wantErr: false,
+		},
+		{
+			name: "valid x-develop config",
+			service: types.ServiceConfig{
+				Name: "test",
+				Extensions: map[string]interface{}{
+					"x-develop": map[string]interface{}{
+						"watch": []map[string]interface{}{
+							{
+								"path":   "./src",
+								"action": "sync",
+								"target": "/app/src",
+							},
+						},
+					},
+				},
+			},
+			project: &types.Project{
+				WorkingDir: tempDir,
+			},
+			wantErr: false,
+		},
+		{
+			name: "rebuild without build section",
+			service: types.ServiceConfig{
+				Name: "test",
+				Extensions: map[string]interface{}{
+					"x-develop": map[string]interface{}{
+						"watch": []map[string]interface{}{
+							{
+								"path":   "./src",
+								"action": "rebuild",
+							},
+						},
+					},
+				},
+			},
+			project: &types.Project{
+				WorkingDir: tempDir,
+			},
+			wantErr:     true,
+			errContains: "doesn't have a build section",
+		},
+		{
+			name: "sync+exec without command",
+			service: types.ServiceConfig{
+				Name: "test",
+				Extensions: map[string]interface{}{
+					"x-develop": map[string]interface{}{
+						"watch": []map[string]interface{}{
+							{
+								"path":   "./src",
+								"action": "sync+exec",
+							},
+						},
+					},
+				},
+			},
+			project: &types.Project{
+				WorkingDir: tempDir,
+			},
+			wantErr:     true,
+			errContains: "without a command",
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			config, err := loadDevelopmentConfig(tt.service, tt.project)
+			if tt.wantErr {
+				assert.ErrorContains(t, err, tt.errContains)
+			} else {
+				assert.NilError(t, err)
+				if tt.service.Extensions == nil {
+					assert.Assert(t, config == nil)
+				}
+			}
+		})
+	}
+}
+
+func TestCheckIfPathAlreadyBindMounted(t *testing.T) {
+	tests := []struct {
+		name      string
+		watchPath string
+		volumes   []types.ServiceVolumeConfig
+		want      bool
+	}{
+		{
+			name:      "no volumes",
+			watchPath: "/test/path",
+			volumes:   []types.ServiceVolumeConfig{},
+			want:      false,
+		},
+		{
+			name:      "path is bind mounted",
+			watchPath: "/host/src/app",
+			volumes: []types.ServiceVolumeConfig{
+				{
+					Type:   "bind",
+					Source: "/host/src",
+					Target: "/app",
+					Bind:   &types.ServiceVolumeBind{},
+				},
+			},
+			want: true,
+		},
+		{
+			name:      "path is not bind mounted",
+			watchPath: "/host/other",
+			volumes: []types.ServiceVolumeConfig{
+				{
+					Type:   "bind",
+					Source: "/host/src",
+					Target: "/app",
+					Bind:   &types.ServiceVolumeBind{},
+				},
+			},
+			want: false,
+		},
+		{
+			name:      "volume is not bind type",
+			watchPath: "/test/path",
+			volumes: []types.ServiceVolumeConfig{
+				{
+					Type:   "volume",
+					Source: "test-volume",
+					Target: "/app",
+				},
+			},
+			want: false,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got := checkIfPathAlreadyBindMounted(tt.watchPath, tt.volumes)
+			assert.Equal(t, tt.want, got)
+		})
+	}
+}
+
+func TestIsSync(t *testing.T) {
+	tests := []struct {
+		name    string
+		trigger types.Trigger
+		want    bool
+	}{
+		{
+			name:    "sync action",
+			trigger: types.Trigger{Action: types.WatchActionSync},
+			want:    true,
+		},
+		{
+			name:    "sync+restart action",
+			trigger: types.Trigger{Action: types.WatchActionSyncRestart},
+			want:    true,
+		},
+		{
+			name:    "rebuild action",
+			trigger: types.Trigger{Action: types.WatchActionRebuild},
+			want:    false,
+		},
+		{
+			name:    "sync+exec action",
+			trigger: types.Trigger{Action: types.WatchActionSyncExec},
+			want:    false,
+		},
+		{
+			name:    "empty action",
+			trigger: types.Trigger{Action: ""},
+			want:    false,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got := isSync(tt.trigger)
+			assert.Equal(t, tt.want, got)
+		})
+	}
 }

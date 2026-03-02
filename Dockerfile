@@ -85,7 +85,7 @@ RUN --mount=type=bind,target=. \
     xx-go --wrap && \
     if [ "$(xx-info os)" == "darwin" ]; then export CGO_ENABLED=1; export BUILD_TAGS=fsnotify,$BUILD_TAGS; fi && \
     make build GO_BUILDTAGS="$BUILD_TAGS" DESTDIR=/out && \
-    xx-verify --static /out/docker-compose
+    xx-verify --static /out/durablecompose
 
 FROM build-base AS lint
 ARG BUILD_TAGS
@@ -172,11 +172,11 @@ RUN --mount=target=/context \
 EOT
 
 FROM scratch AS binary-unix
-COPY --link --from=build /out/docker-compose /
+COPY --link --from=build /out/durablecompose /
 FROM binary-unix AS binary-darwin
 FROM binary-unix AS binary-linux
 FROM scratch AS binary-windows
-COPY --link --from=build /out/docker-compose /docker-compose.exe
+COPY --link --from=build /out/durablecompose /durablecompose.exe
 FROM binary-$TARGETOS AS binary
 # enable scanning for this stage
 ARG BUILDKIT_SBOM_SCAN_STAGE=true
@@ -191,7 +191,7 @@ RUN --mount=from=binary \
     # TODO: should just use standard arch
     TARGETARCH=$([ "$TARGETARCH" = "amd64" ] && echo "x86_64" || echo "$TARGETARCH"); \
     TARGETARCH=$([ "$TARGETARCH" = "arm64" ] && echo "aarch64" || echo "$TARGETARCH"); \
-    cp docker-compose* "/out/docker-compose-${TARGETOS}-${TARGETARCH}${TARGETVARIANT}$(ls docker-compose* | sed -e 's/^docker-compose//')"
+    cp durablecompose* "/out/durablecompose-${TARGETOS}-${TARGETARCH}${TARGETVARIANT}$(ls durablecompose* | sed -e 's/^durablecompose//')"
 
 FROM scratch AS release
 COPY --from=releaser /out/ /

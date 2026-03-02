@@ -22,7 +22,7 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/docker/compose/v5/pkg/api"
+	"github.com/durable_oss/durablecompose/pkg/api"
 )
 
 // Print prints formatted lists in different formats

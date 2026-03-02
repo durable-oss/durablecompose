@@ -26,12 +26,12 @@ import (
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 
-	"github.com/docker/compose/v5/cmd/cmdtrace"
-	"github.com/docker/compose/v5/cmd/compatibility"
-	commands "github.com/docker/compose/v5/cmd/compose"
-	"github.com/docker/compose/v5/cmd/prompt"
-	"github.com/docker/compose/v5/internal"
-	"github.com/docker/compose/v5/pkg/compose"
+	"github.com/durable_oss/durablecompose/cmd/cmdtrace"
+	"github.com/durable_oss/durablecompose/cmd/compatibility"
+	commands "github.com/durable_oss/durablecompose/cmd/compose"
+	"github.com/durable_oss/durablecompose/cmd/prompt"
+	"github.com/durable_oss/durablecompose/internal"
+	"github.com/durable_oss/durablecompose/pkg/compose"
 )
 
 func pluginMain() {

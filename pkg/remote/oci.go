@@ -32,8 +32,8 @@ import (
 	"github.com/docker/cli/cli/command"
 	spec "github.com/opencontainers/image-spec/specs-go/v1"
 
-	"github.com/docker/compose/v5/internal/oci"
-	"github.com/docker/compose/v5/pkg/api"
+	"github.com/durable_oss/durablecompose/internal/oci"
+	"github.com/durable_oss/durablecompose/pkg/api"
 )
 
 const (

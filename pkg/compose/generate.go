@@ -29,7 +29,7 @@ import (
 	"github.com/moby/moby/api/types/network"
 	"github.com/moby/moby/client"
 
-	"github.com/docker/compose/v5/pkg/api"
+	"github.com/durable_oss/durablecompose/pkg/api"
 )
 
 func (s *composeService) Generate(ctx context.Context, options api.GenerateOptions) (*types.Project, error) {

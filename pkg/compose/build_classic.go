@@ -42,7 +42,7 @@ import (
 	"go.opentelemetry.io/otel/attribute"
 	"go.opentelemetry.io/otel/trace"
 
-	"github.com/docker/compose/v5/pkg/api"
+	"github.com/durable_oss/durablecompose/pkg/api"
 )
 
 func (s *composeService) doBuildClassic(ctx context.Context, project *types.Project, serviceToBuild types.Services, options api.BuildOptions) (map[string]string, error) {

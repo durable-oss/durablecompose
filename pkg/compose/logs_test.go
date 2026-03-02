@@ -30,7 +30,7 @@ import (
 	"github.com/stretchr/testify/require"
 	"go.uber.org/mock/gomock"
 
-	compose "github.com/docker/compose/v5/pkg/api"
+	compose "github.com/durable_oss/durablecompose/pkg/api"
 )
 
 func TestComposeService_Logs_Demux(t *testing.T) {

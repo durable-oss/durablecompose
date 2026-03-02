@@ -35,9 +35,9 @@ import (
 	"github.com/sirupsen/logrus"
 	"golang.org/x/sync/errgroup"
 
-	"github.com/docker/compose/v5/cmd/formatter"
-	"github.com/docker/compose/v5/internal/tracing"
-	"github.com/docker/compose/v5/pkg/api"
+	"github.com/durable_oss/durablecompose/cmd/formatter"
+	"github.com/durable_oss/durablecompose/internal/tracing"
+	"github.com/durable_oss/durablecompose/pkg/api"
 )
 
 func (s *composeService) Up(ctx context.Context, project *types.Project, options api.UpOptions) error { //nolint:gocyclo

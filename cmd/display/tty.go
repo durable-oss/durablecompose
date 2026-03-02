@@ -31,8 +31,8 @@ import (
 	"github.com/docker/go-units"
 	"github.com/morikuni/aec"
 
-	"github.com/docker/compose/v5/pkg/api"
-	"github.com/docker/compose/v5/pkg/utils"
+	"github.com/durable_oss/durablecompose/pkg/api"
+	"github.com/durable_oss/durablecompose/pkg/utils"
 )
 
 // Full creates an EventProcessor that render advanced UI within a terminal.

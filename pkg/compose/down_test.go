@@ -33,8 +33,8 @@ import (
 	"go.uber.org/mock/gomock"
 	"gotest.tools/v3/assert"
 
-	compose "github.com/docker/compose/v5/pkg/api"
-	"github.com/docker/compose/v5/pkg/mocks"
+	compose "github.com/durable_oss/durablecompose/pkg/api"
+	"github.com/durable_oss/durablecompose/pkg/mocks"
 )
 
 func TestDown(t *testing.T) {

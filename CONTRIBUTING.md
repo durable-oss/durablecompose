@@ -1,42 +1,46 @@
-# Contributing to Docker
+# Contributing to DurableCompose
 
-Want to hack on Docker? Awesome!  We have a contributor's guide that explains
-[setting up a Docker development environment and the contribution
-process](https://docs.docker.com/contribute/).
+Want to help improve DurableCompose? We welcome contributions from the community!
 
 This page contains information about reporting issues as well as some tips and
 guidelines useful to experienced open source contributors. Finally, make sure
-you read our [community guidelines](#docker-community-guidelines) before you
+you read our [community guidelines](#durablecompose-community-guidelines) before you
 start participating.
+
+## About Durable Programming
+
+DurableCompose is a product of **Durable Programming**, which specializes in helping organizations maintain and modernize enterprise applications. We believe in:
+
+- **Long-term sustainability**: Software that remains maintainable over years
+- **Pragmatic solutions**: Addressing real problems with proven approaches
+- **Quality and reliability**: Thorough testing and careful design
+- **Community collaboration**: Open development while supporting commercial viability
 
 ## Topics
 
-- [Contributing to Docker](#contributing-to-docker)
+- [Contributing to DurableCompose](#contributing-to-durablecompose)
+  - [About Durable Programming](#about-durable-programming)
   - [Topics](#topics)
   - [Reporting security issues](#reporting-security-issues)
   - [Reporting other issues](#reporting-other-issues)
   - [Quick contribution tips and guidelines](#quick-contribution-tips-and-guidelines)
     - [Pull requests are always welcome](#pull-requests-are-always-welcome)
-    - [Talking to other Docker users and contributors](#talking-to-other-docker-users-and-contributors)
+    - [Talking to other contributors](#talking-to-other-contributors)
     - [Conventions](#conventions)
     - [Merge approval](#merge-approval)
     - [Sign your work](#sign-your-work)
     - [How can I become a maintainer?](#how-can-i-become-a-maintainer)
-  - [Docker community guidelines](#docker-community-guidelines)
+  - [DurableCompose community guidelines](#durablecompose-community-guidelines)
   - [Coding Style](#coding-style)
 
 ## Reporting security issues
 
-The Docker maintainers take security seriously. If you discover a security
-issue, please bring it to their attention right away!
+We take security seriously. If you discover a security issue, please bring it to our attention right away!
 
-Please **DO NOT** file a public issue, instead, send your report privately to
-[security@docker.com](mailto:security@docker.com).
+Please **DO NOT** file a public issue. Instead, send your report privately to
+[security@durableprogramming.com](mailto:security@durableprogramming.com).
 
 Security reports are greatly appreciated and we will publicly thank you for them.
-We also like to send gifts&mdash;if you're into Docker swag, make sure to let
-us know. We currently do not offer a paid security bounty program but are not
-ruling it out in the future.
 
 
 ## Reporting other issues
@@ -45,7 +49,7 @@ A great way to contribute to the project is to send a detailed report when you
 encounter an issue. We always appreciate a well-written, thorough bug report,
 and will thank you for it!
 
-Check that [our issue database](https://github.com/docker/compose/labels/Docker%20Compose%20V2)
+Check that [our issue database](https://github.com/durable_oss/durablecompose/issues)
 doesn't already include that problem or suggestion before submitting an issue.
 If you find a match, you can use the "subscribe" button to get notified of
 updates. Do *not* leave random "+1" or "I have this too" comments, as they
@@ -55,6 +59,7 @@ resolve the issue, please leave a comment.
 
 When reporting issues, always include:
 
+* The output of `durablecompose version`.
 * The output of `docker version`.
 * The output of `docker context show`.
 * The output of `docker info`.
@@ -80,46 +85,35 @@ This section gives the experienced contributor some tips and guidelines.
 Not sure if that typo is worth a pull request? Found a bug and know how to fix
 it? Do it! We will appreciate it. Any significant change, like adding a backend,
 should be documented as
-[a GitHub issue](https://github.com/docker/compose/issues)
+[a GitHub issue](https://github.com/durable_oss/durablecompose/issues)
 before anybody starts working on it.
 
 We are always thrilled to receive pull requests. We do our best to process them
 quickly. If your pull request is not accepted on the first try,
 don't get discouraged!
 
-### Talking to other Docker users and contributors
+### Talking to other contributors
 
 <table class="tg">
   <col width="45%">
   <col width="65%">
   <tr>
-    <td>Community Slack</td>
+    <td>GitHub Issues</td>
     <td>
-      The Docker Community has a dedicated Slack chat to discuss features and issues.  You can sign-up <a href="https://www.docker.com/community/" target="_blank">with this link</a>.
+      The primary place for discussion is our <a href="https://github.com/durable_oss/durablecompose/issues" target="_blank">GitHub issue tracker</a>. This is where we track bugs, feature requests, and discuss implementation details.
     </td>
   </tr>
   <tr>
-    <td>Forums</td>
+    <td>GitHub Discussions</td>
     <td>
-      A public forum for users to discuss questions and explore current design patterns and
-      best practices about Docker and related projects in the Docker Ecosystem. To participate,
-      just log in with your Docker Hub account on <a href="https://forums.docker.com" target="_blank">https://forums.docker.com</a>.
+      For general questions, design discussions, and community support, use <a href="https://github.com/durable_oss/durablecompose/discussions" target="_blank">GitHub Discussions</a>.
     </td>
   </tr>
   <tr>
-    <td>Twitter</td>
+    <td>Website</td>
     <td>
-      You can follow <a href="https://twitter.com/docker/" target="_blank">Docker's Twitter feed</a>
-      to get updates on our products. You can also tweet us questions or just
-      share blogs or stories.
-    </td>
-  </tr>
-  <tr>
-    <td>Stack Overflow</td>
-    <td>
-      Stack Overflow has over 17000 Docker questions listed. We regularly
-      monitor <a href="https://stackoverflow.com/questions/tagged/docker" target="_blank">Docker questions</a>
-      and so do many other knowledgeable Docker users.
+      Visit <a href="https://durableprogramming.com" target="_blank">Durable Programming's website</a>
+      to learn more about our philosophy and other projects.
     </td>
   </tr>
 </table>
@@ -251,21 +245,18 @@ commit automatically with `git commit -s`.
 
 ### How can I become a maintainer?
 
-The procedures for adding new maintainers are explained in the global
-[MAINTAINERS](https://github.com/docker/opensource/blob/main/MAINTAINERS)
-file in the
-[https://github.com/docker/opensource/](https://github.com/docker/opensource/)
-repository.
+We welcome dedicated contributors to join as maintainers. To become a maintainer:
 
-Don't forget: being a maintainer is a time investment. Make sure you
-will have time to make yourself available. You don't have to be a
-maintainer to make a difference on the project!
+1. Make consistent, quality contributions over time
+2. Demonstrate understanding of the project's goals and philosophy
+3. Show good judgment in code reviews and discussions
+4. Be available to help maintain the project
 
-## Docker community guidelines
+Being a maintainer is a time investment. Make sure you will have time to make yourself available. You don't have to be a maintainer to make a difference on the project!
 
-We want to keep the Docker community awesome, growing and collaborative. We need
-your help to keep it that way. To help with this we've come up with some general
-guidelines for the community as a whole:
+## DurableCompose community guidelines
+
+We want to keep the DurableCompose community welcoming, collaborative, and productive. To help with this, we've established guidelines for the community:
 
 * Be nice: Be courteous, respectful and polite to fellow community members:
   no regional, racial, gender or other abuse will be tolerated. We like

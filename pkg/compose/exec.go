@@ -25,7 +25,7 @@ import (
 	"github.com/docker/cli/cli/command/container"
 	containerType "github.com/moby/moby/api/types/container"
 
-	"github.com/docker/compose/v5/pkg/api"
+	"github.com/durable_oss/durablecompose/pkg/api"
 )
 
 func (s *composeService) Exec(ctx context.Context, projectName string, options api.RunOptions) (int, error) {

@@ -28,7 +28,7 @@ import (
 	"github.com/buger/goterm"
 	"github.com/moby/moby/client/pkg/jsonmessage"
 
-	"github.com/docker/compose/v5/pkg/api"
+	"github.com/durable_oss/durablecompose/pkg/api"
 )
 
 // LogConsumer consume logs from services and format them

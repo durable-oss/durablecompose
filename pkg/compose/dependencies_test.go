@@ -28,7 +28,7 @@ import (
 	"github.com/stretchr/testify/require"
 	"gotest.tools/v3/assert"
 
-	"github.com/docker/compose/v5/pkg/utils"
+	"github.com/durable_oss/durablecompose/pkg/utils"
 )
 
 func createTestProject() *types.Project {

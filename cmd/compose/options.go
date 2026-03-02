@@ -31,9 +31,9 @@ import (
 	"github.com/compose-spec/compose-go/v2/types"
 	"github.com/docker/cli/cli/command"
 
-	"github.com/docker/compose/v5/cmd/display"
-	"github.com/docker/compose/v5/cmd/prompt"
-	"github.com/docker/compose/v5/internal/tracing"
+	"github.com/durable_oss/durablecompose/cmd/display"
+	"github.com/durable_oss/durablecompose/cmd/prompt"
+	"github.com/durable_oss/durablecompose/internal/tracing"
 )
 
 func applyPlatforms(project *types.Project, buildForSinglePlatform bool) error {

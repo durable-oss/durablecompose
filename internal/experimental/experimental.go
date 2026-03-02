@@ -21,7 +21,7 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/docker/compose/v5/internal/desktop"
+	"github.com/durable_oss/durablecompose/internal/desktop"
 )
 
 // envComposeExperimentalGlobal can be set to a falsy value (e.g. 0, false) to

@@ -25,8 +25,8 @@ import (
 	"github.com/moby/moby/client"
 	"github.com/sirupsen/logrus"
 
-	"github.com/docker/compose/v5/pkg/api"
-	"github.com/docker/compose/v5/pkg/utils"
+	"github.com/durable_oss/durablecompose/pkg/api"
+	"github.com/durable_oss/durablecompose/pkg/utils"
 )
 
 type monitor struct {

@@ -35,7 +35,7 @@ import (
 	gitutil "github.com/moby/buildkit/frontend/dockerfile/dfgitutil"
 	"github.com/sirupsen/logrus"
 
-	"github.com/docker/compose/v5/pkg/api"
+	"github.com/durable_oss/durablecompose/pkg/api"
 )
 
 const GIT_REMOTE_ENABLED = "COMPOSE_EXPERIMENTAL_GIT_REMOTE"

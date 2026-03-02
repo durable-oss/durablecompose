@@ -22,7 +22,7 @@ import (
 
 	"github.com/docker/cli/cli/command/container"
 
-	"github.com/docker/compose/v5/pkg/api"
+	"github.com/durable_oss/durablecompose/pkg/api"
 )
 
 func (s *composeService) Attach(ctx context.Context, projectName string, options api.AttachOptions) error {

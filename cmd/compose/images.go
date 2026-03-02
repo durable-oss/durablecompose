@@ -31,9 +31,9 @@ import (
 	"github.com/moby/moby/client/pkg/stringid"
 	"github.com/spf13/cobra"
 
-	"github.com/docker/compose/v5/cmd/formatter"
-	"github.com/docker/compose/v5/pkg/api"
-	"github.com/docker/compose/v5/pkg/compose"
+	"github.com/durable_oss/durablecompose/cmd/formatter"
+	"github.com/durable_oss/durablecompose/pkg/api"
+	"github.com/durable_oss/durablecompose/pkg/compose"
 )
 
 type imageOptions struct {

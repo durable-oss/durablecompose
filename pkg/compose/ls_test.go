@@ -23,7 +23,7 @@ import (
 	"github.com/moby/moby/api/types/container"
 	"gotest.tools/v3/assert"
 
-	"github.com/docker/compose/v5/pkg/api"
+	"github.com/durable_oss/durablecompose/pkg/api"
 )
 
 func TestContainersToStacks(t *testing.T) {

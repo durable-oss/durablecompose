@@ -32,7 +32,7 @@ import (
 	"github.com/moby/moby/client"
 	"github.com/moby/moby/client/pkg/stringid"
 
-	"github.com/docker/compose/v5/pkg/api"
+	"github.com/durable_oss/durablecompose/pkg/api"
 )
 
 type prepareRunResult struct {

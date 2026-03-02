@@ -21,7 +21,7 @@ import (
 	"github.com/jonboulle/clockwork"
 	"github.com/sirupsen/logrus"
 
-	"github.com/docker/compose/v5/pkg/utils"
+	"github.com/durable_oss/durablecompose/pkg/utils"
 )
 
 const QuietPeriod = 500 * time.Millisecond

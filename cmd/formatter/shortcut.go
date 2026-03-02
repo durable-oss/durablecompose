@@ -31,8 +31,8 @@ import (
 	"github.com/eiannone/keyboard"
 	"github.com/skratchdot/open-golang/open"
 
-	"github.com/docker/compose/v5/internal/tracing"
-	"github.com/docker/compose/v5/pkg/api"
+	"github.com/durable_oss/durablecompose/internal/tracing"
+	"github.com/durable_oss/durablecompose/pkg/api"
 )
 
 const DISPLAY_ERROR_TIME = 10

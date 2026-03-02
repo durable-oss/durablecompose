@@ -20,8 +20,8 @@ import (
 
 	"github.com/compose-spec/compose-go/v2/types"
 
-	"github.com/docker/compose/v5/internal/tracing"
-	"github.com/docker/compose/v5/pkg/api"
+	"github.com/durable_oss/durablecompose/internal/tracing"
+	"github.com/durable_oss/durablecompose/pkg/api"
 )
 
 func (s *composeService) Scale(ctx context.Context, project *types.Project, options api.ScaleOptions) error {

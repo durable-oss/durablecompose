@@ -1,70 +1,34 @@
-# Table of Contents
-- [Docker Compose](#docker-compose)
-- [Where to get Docker Compose](#where-to-get-docker-compose)
-    + [Windows and macOS](#windows-and-macos)
-    + [Linux](#linux)
-- [Quick Start](#quick-start)
-- [Contributing](#contributing)
-- [Legacy](#legacy)
+# DurableCompose
 
-# Docker Compose
+A tool for defining and running multi-container Docker applications using the [Compose file format](https://compose-spec.io).
 
-[![GitHub release](https://img.shields.io/github/v/release/docker/compose.svg?style=flat-square)](https://github.com/docker/compose/releases/latest)
-[![PkgGoDev](https://img.shields.io/badge/go.dev-docs-007d9c?style=flat-square&logo=go&logoColor=white)](https://pkg.go.dev/github.com/docker/compose/v5)
-[![Build Status](https://img.shields.io/github/actions/workflow/status/docker/compose/ci.yml?label=ci&logo=github&style=flat-square)](https://github.com/docker/compose/actions?query=workflow%3Aci)
-[![Go Report Card](https://goreportcard.com/badge/github.com/docker/compose/v5?style=flat-square)](https://goreportcard.com/report/github.com/docker/compose/v5)
-[![Codecov](https://codecov.io/gh/docker/compose/branch/main/graph/badge.svg?token=HP3K4Y4ctu)](https://codecov.io/gh/docker/compose)
-[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/docker/compose/badge)](https://api.securityscorecards.dev/projects/github.com/docker/compose)
-![Docker Compose](logo.png?raw=true "Docker Compose Logo")
+DurableCompose enables you to define multi-container application configurations in a single `compose.yaml` file and orchestrate them with simple commands. Built on proven foundations with a focus on long-term maintainability and reliability.
 
-Docker Compose is a tool for running multi-container applications on Docker
-defined using the [Compose file format](https://compose-spec.io).
-A Compose file is used to define how one or more containers that make up
-your application are configured.
-Once you have a Compose file, you can create and start your application with a
-single command: `docker compose up`.
+## Features
 
-> **Note**: About Docker Swarm
-> Docker Swarm used to rely on the legacy compose file format but did not adopt the compose specification
-> so is missing some of the recent enhancements in the compose syntax. After 
-> [acquisition by Mirantis](https://www.mirantis.com/software/swarm/) swarm isn't maintained by Docker Inc, and
-> as such some Docker Compose features aren't accessible to swarm users.
+- **Simple Configuration**: Define multi-container applications in a single YAML file
+- **Complete Lifecycle Management**: Start, stop, rebuild, and manage services with intuitive commands
+- **Watch Mode**: Automatically rebuild and restart services when code changes
+- **Service Dependencies**: Define and manage dependencies between services
+- **Network Isolation**: Automatic network creation for service communication
+- **Volume Management**: Persistent data storage and sharing between containers
+- **Compose Spec Compliant**: Full compatibility with the [Compose specification](https://compose-spec.io)
 
-# Where to get Docker Compose
+## Quick Start
 
-### Windows and macOS
+```bash
+# Install DurableCompose (see Installation section for more options)
+# On macOS/Linux via Homebrew
+brew install durablecompose
 
-Docker Compose is included in
-[Docker Desktop](https://www.docker.com/products/docker-desktop/)
-for Windows and macOS.
+# On Windows via winget
+winget install DurableProgramming.DurableCompose
 
-### Linux
+# Verify installation
+durablecompose version
+```
 
-You can download Docker Compose binaries from the
-[release page](https://github.com/docker/compose/releases) on this repository.
-
-Rename the relevant binary for your OS to `docker-compose` and copy it to `$HOME/.docker/cli-plugins`
-
-Or copy it into one of these folders to install it system-wide:
-
-* `/usr/local/lib/docker/cli-plugins` OR `/usr/local/libexec/docker/cli-plugins`
-* `/usr/lib/docker/cli-plugins` OR `/usr/libexec/docker/cli-plugins`
-
-(might require making the downloaded file executable with `chmod +x`)
-
-
-Quick Start
------------
-
-Using Docker Compose is a three-step process:
-1. Define your app's environment with a `Dockerfile` so it can be
-   reproduced anywhere.
-2. Define the services that make up your app in `compose.yaml` so
-   they can be run together in an isolated environment.
-3. Lastly, run `docker compose up` and Compose will start and run your entire
-   app.
-
-A Compose file looks like this:
+Create a `compose.yaml` file:
 
 ```yaml
 services:
@@ -75,19 +39,251 @@ services:
     volumes:
       - .:/code
   redis:
-    image: redis
+    image: redis:alpine
 ```
 
-Contributing
-------------
+Start your application:
 
-Want to help develop Docker Compose? Check out our
-[contributing documentation](CONTRIBUTING.md).
+```bash
+durablecompose up
+```
 
-If you find an issue, please report it on the
-[issue tracker](https://github.com/docker/compose/issues/new/choose).
+## Installation
 
-Legacy
--------------
+### Recommended Methods
 
-The Python version of Compose is available under the `v1` [branch](https://github.com/docker/compose/tree/v1).
+<details>
+<summary><b>macOS</b></summary>
+
+#### Homebrew (Recommended)
+```bash
+brew install durablecompose
+```
+
+#### Standalone Binary
+```bash
+# Intel Macs
+curl -L -o durablecompose https://github.com/durable_oss/durablecompose/releases/latest/download/durablecompose-darwin-amd64
+chmod +x durablecompose
+sudo mv durablecompose /usr/local/bin/
+
+# Apple Silicon Macs
+curl -L -o durablecompose https://github.com/durable_oss/durablecompose/releases/latest/download/durablecompose-darwin-arm64
+chmod +x durablecompose
+sudo mv durablecompose /usr/local/bin/
+```
+
+</details>
+
+<details>
+<summary><b>Windows</b></summary>
+
+#### winget (Recommended)
+```powershell
+winget install DurableProgramming.DurableCompose
+```
+
+#### Chocolatey
+```powershell
+choco install durablecompose
+```
+
+#### Standalone Binary
+1. Download [durablecompose.exe](https://github.com/durable_oss/durablecompose/releases/latest/download/durablecompose-windows-amd64.exe)
+2. Move to `C:\Program Files\DurableCompose\`
+3. Add to PATH: System Properties → Environment Variables → Path
+
+</details>
+
+<details>
+<summary><b>Linux</b></summary>
+
+#### Ubuntu/Debian (APT)
+```bash
+sudo add-apt-repository ppa:durableprogramming/durablecompose
+sudo apt update
+sudo apt install durablecompose
+```
+
+#### Arch Linux (AUR)
+```bash
+yay -S durablecompose
+```
+
+#### Fedora/RHEL
+```bash
+sudo dnf install durablecompose
+```
+
+#### Universal Binary (All Distributions)
+```bash
+curl -L -o durablecompose https://github.com/durable_oss/durablecompose/releases/latest/download/durablecompose-linux-amd64
+chmod +x durablecompose
+sudo mv durablecompose /usr/local/bin/
+```
+
+</details>
+
+### From Source
+
+```bash
+git clone https://github.com/durable_oss/durablecompose.git
+cd durablecompose
+make build
+```
+
+The binary will be available in `bin/build/durablecompose`.
+
+### Docker
+
+```bash
+docker pull durableprogramming/durablecompose:latest
+docker run --rm durableprogramming/durablecompose:latest version
+```
+
+### Verification
+
+After installation, verify it works:
+
+```bash
+durablecompose version
+# Expected: durablecompose version vX.Y.Z
+
+durablecompose --help
+# Should display help information
+```
+
+## Usage
+
+### Basic Commands
+
+```bash
+# Start services in foreground
+durablecompose up
+
+# Start services in background
+durablecompose up -d
+
+# Stop services
+durablecompose down
+
+# View service logs
+durablecompose logs
+
+# List running services
+durablecompose ps
+
+# Execute command in running service
+durablecompose exec web sh
+```
+
+### Watch Mode
+
+Automatically rebuild and restart services when files change:
+
+```bash
+durablecompose up --watch
+```
+
+Configure watch in `compose.yaml`:
+
+```yaml
+services:
+  web:
+    build: .
+    develop:
+      watch:
+        - path: ./src
+          action: sync
+          target: /app/src
+        - path: package.json
+          action: rebuild
+```
+
+### Common Workflows
+
+**Development Workflow**:
+```bash
+# Start with watch mode
+durablecompose up --watch
+
+# View logs from specific service
+durablecompose logs -f web
+
+# Rebuild after dependency changes
+durablecompose up --build
+```
+
+**Production Deployment**:
+```bash
+# Pull latest images
+durablecompose pull
+
+# Start services in background
+durablecompose up -d
+
+# View status
+durablecompose ps
+```
+
+See the [Compose Specification](https://compose-spec.io) for complete file format documentation.
+
+## About This Project
+
+DurableCompose is a product of **Durable Programming**, forked from docker-compose v5 with a focus on:
+
+- **Long-term maintainability**: Building software that remains useful and maintainable over years
+- **Pragmatic improvements**: Addressing real-world problems with proven solutions
+- **Quality and reliability**: Comprehensive testing and careful consideration of edge cases
+- **Community-driven development**: Open collaboration while maintaining commercial viability
+
+This fork represents Durable Programming's commitment to sustainable software development—creating tools that solve genuine problems and can be maintained effectively over the long term.
+
+### Durable Programming Philosophy
+
+Durable Programming emphasizes:
+
+1. **Practical problem-solving** over technology for its own sake
+2. **Incremental improvement** rather than disruptive rewrites
+3. **Modular, composable design** for flexibility and reusability
+4. **Developer experience** through clear documentation and intuitive interfaces
+5. **Security and stability** as non-negotiable requirements
+
+## Contributing
+
+We welcome contributions from the community! See [CONTRIBUTING.md](CONTRIBUTING.md) for:
+
+- Development setup instructions
+- Code style guidelines
+- Pull request process
+- Testing requirements
+
+To report issues or request features, use our [issue tracker](https://github.com/durable_oss/durablecompose/issues/new/choose).
+
+## License
+
+Apache License 2.0 - See [LICENSE](LICENSE) for details.
+
+## Support
+
+- **Documentation**: [https://github.com/durable_oss/durablecompose/tree/main/docs](https://github.com/durable_oss/durablecompose/tree/main/docs)
+- **Issues**: [GitHub Issues](https://github.com/durable_oss/durablecompose/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/durable_oss/durablecompose/discussions)
+- **Commercial Support**: [commercial@durableprogramming.com](mailto:commercial@durableprogramming.com)
+
+## Upstream
+
+DurableCompose is forked from [docker-compose](https://github.com/docker/compose) v5. We maintain compatibility with the Compose file format and strive to contribute improvements back to the upstream project where appropriate.
+
+---
+
+**Table of Contents**
+- [Features](#features)
+- [Quick Start](#quick-start)
+- [Installation](#installation)
+- [Usage](#usage)
+- [About This Project](#about-this-project)
+- [Contributing](#contributing)
+- [License](#license)
+- [Support](#support)
+- [Upstream](#upstream)

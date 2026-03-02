@@ -27,7 +27,7 @@ import (
 	"github.com/moby/moby/client"
 	"github.com/sirupsen/logrus"
 
-	"github.com/docker/compose/v5/pkg/api"
+	"github.com/durable_oss/durablecompose/pkg/api"
 )
 
 func (s *composeService) List(ctx context.Context, opts api.ListOptions) ([]api.Stack, error) {

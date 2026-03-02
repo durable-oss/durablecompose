@@ -39,5 +39,5 @@ func osDependentRunDir() (string, error) {
 	if err != nil {
 		return "", err
 	}
-	return filepath.Join(home, ".docker", "docker-compose"), nil
+	return filepath.Join(home, ".durablecompose"), nil
 }

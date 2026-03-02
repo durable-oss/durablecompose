@@ -39,12 +39,12 @@ import (
 	"github.com/sirupsen/logrus"
 	"golang.org/x/sync/errgroup"
 
-	pathutil "github.com/docker/compose/v5/internal/paths"
-	"github.com/docker/compose/v5/internal/sync"
-	"github.com/docker/compose/v5/internal/tracing"
-	"github.com/docker/compose/v5/pkg/api"
-	cutils "github.com/docker/compose/v5/pkg/utils"
-	"github.com/docker/compose/v5/pkg/watch"
+	pathutil "github.com/durable_oss/durablecompose/internal/paths"
+	"github.com/durable_oss/durablecompose/internal/sync"
+	"github.com/durable_oss/durablecompose/internal/tracing"
+	"github.com/durable_oss/durablecompose/pkg/api"
+	cutils "github.com/durable_oss/durablecompose/pkg/utils"
+	"github.com/durable_oss/durablecompose/pkg/watch"
 )
 
 type WatchFunc func(ctx context.Context, project *types.Project, options api.WatchOptions) (func() error, error)

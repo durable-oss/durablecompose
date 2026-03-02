@@ -25,7 +25,7 @@ import (
 	"github.com/moby/moby/client"
 	"github.com/spf13/cobra"
 
-	"github.com/docker/compose/v5/pkg/api"
+	"github.com/durable_oss/durablecompose/pkg/api"
 )
 
 type statsOptions struct {

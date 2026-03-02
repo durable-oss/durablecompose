@@ -23,7 +23,7 @@ import (
 
 	"gotest.tools/v3/assert"
 
-	"github.com/docker/compose/v5/pkg/api"
+	"github.com/durable_oss/durablecompose/pkg/api"
 )
 
 func TestJsonWriter_Event(t *testing.T) {

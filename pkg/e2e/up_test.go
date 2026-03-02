@@ -32,7 +32,7 @@ import (
 	"gotest.tools/v3/assert"
 	"gotest.tools/v3/icmd"
 
-	"github.com/docker/compose/v5/pkg/utils"
+	"github.com/durable_oss/durablecompose/pkg/utils"
 )
 
 func TestUpServiceUnhealthy(t *testing.T) {

@@ -37,8 +37,8 @@ import (
 	"github.com/moby/moby/client"
 	"github.com/sirupsen/logrus"
 
-	"github.com/docker/compose/v5/pkg/api"
-	"github.com/docker/compose/v5/pkg/dryrun"
+	"github.com/durable_oss/durablecompose/pkg/api"
+	"github.com/durable_oss/durablecompose/pkg/dryrun"
 )
 
 type Option func(service *composeService) error

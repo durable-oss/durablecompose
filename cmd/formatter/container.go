@@ -28,7 +28,7 @@ import (
 	"github.com/moby/moby/api/types/container"
 	"github.com/moby/moby/client/pkg/stringid"
 
-	"github.com/docker/compose/v5/pkg/api"
+	"github.com/durable_oss/durablecompose/pkg/api"
 )
 
 const (

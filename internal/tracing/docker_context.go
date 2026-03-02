@@ -27,7 +27,7 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 
-	"github.com/docker/compose/v5/internal/memnet"
+	"github.com/durable_oss/durablecompose/internal/memnet"
 )
 
 const otelConfigFieldName = "otel"

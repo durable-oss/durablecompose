@@ -23,7 +23,7 @@ import (
 	"github.com/moby/moby/api/types/container"
 	"github.com/moby/moby/client"
 
-	"github.com/docker/compose/v5/pkg/api"
+	"github.com/durable_oss/durablecompose/pkg/api"
 )
 
 func (s *composeService) Volumes(ctx context.Context, project string, options api.VolumesOptions) ([]api.VolumesSummary, error) {

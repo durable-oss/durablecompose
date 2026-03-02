@@ -1,4 +1,4 @@
-module github.com/docker/compose/v5
+module github.com/durable_oss/durablecompose
 
 go 1.25.0
 

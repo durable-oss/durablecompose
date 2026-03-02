@@ -32,18 +32,18 @@ func osDependentRunDir() (string, error) {
 	for _, flag := range flags {
 		p, _ := windows.KnownFolderPath(windows.FOLDERID_LocalAppData, flag|windows.KF_FLAG_DONT_VERIFY)
 		if p != "" {
-			return filepath.Join(p, "docker-compose"), nil
+			return filepath.Join(p, "durablecompose"), nil
 		}
 	}
 
 	appData, ok := os.LookupEnv("LOCALAPPDATA")
 	if ok {
-		return filepath.Join(appData, "docker-compose"), nil
+		return filepath.Join(appData, "durablecompose"), nil
 	}
 
 	home, err := os.UserHomeDir()
 	if err != nil {
 		return "", err
 	}
-	return filepath.Join(home, "AppData", "Local", "docker-compose"), nil
+	return filepath.Join(home, "AppData", "Local", "durablecompose"), nil
 }

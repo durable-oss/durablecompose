@@ -23,8 +23,8 @@ import (
 	"github.com/docker/cli/cli/command"
 	"github.com/spf13/cobra"
 
-	"github.com/docker/compose/v5/cmd/formatter"
-	"github.com/docker/compose/v5/internal"
+	"github.com/durable_oss/durablecompose/cmd/formatter"
+	"github.com/durable_oss/durablecompose/internal"
 )
 
 type versionOptions struct {
@@ -36,7 +36,7 @@ func versionCommand(dockerCli command.Cli) *cobra.Command {
 	opts := versionOptions{}
 	cmd := &cobra.Command{
 		Use:   "version [OPTIONS]",
-		Short: "Show the Docker Compose version information",
+		Short: "Show the DurableCompose version information",
 		Args:  cobra.NoArgs,
 		RunE: func(cmd *cobra.Command, _ []string) error {
 			runVersion(opts, dockerCli)
@@ -51,7 +51,7 @@ func versionCommand(dockerCli command.Cli) *cobra.Command {
 	// define flags for backward compatibility with com.docker.cli
 	flags := cmd.Flags()
 	flags.StringVarP(&opts.format, "format", "f", "", "Format the output. Values: [pretty | json]. (Default: pretty)")
-	flags.BoolVar(&opts.short, "short", false, "Shows only Compose's version number")
+	flags.BoolVar(&opts.short, "short", false, "Shows only DurableCompose's version number")
 
 	return cmd
 }
@@ -62,8 +62,9 @@ func runVersion(opts versionOptions, dockerCli command.Cli) {
 		return
 	}
 	if opts.format == formatter.JSON {
-		_, _ = fmt.Fprintf(dockerCli.Out(), "{\"version\":%q}\n", internal.Version)
+		_, _ = fmt.Fprintf(dockerCli.Out(), "{\"version\":%q,\"product\":\"DurableCompose\",\"vendor\":\"Durable Programming\"}\n", internal.Version)
 		return
 	}
-	_, _ = fmt.Fprintln(dockerCli.Out(), "Docker Compose version", internal.Version)
+	_, _ = fmt.Fprintln(dockerCli.Out(), "DurableCompose version", internal.Version)
+	_, _ = fmt.Fprintln(dockerCli.Out(), "A product of Durable Programming - https://durableprogramming.com")
 }

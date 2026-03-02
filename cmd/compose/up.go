@@ -31,11 +31,11 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
 
-	"github.com/docker/compose/v5/cmd/display"
-	"github.com/docker/compose/v5/cmd/formatter"
-	"github.com/docker/compose/v5/pkg/api"
-	"github.com/docker/compose/v5/pkg/compose"
-	"github.com/docker/compose/v5/pkg/utils"
+	"github.com/durable_oss/durablecompose/cmd/display"
+	"github.com/durable_oss/durablecompose/cmd/formatter"
+	"github.com/durable_oss/durablecompose/pkg/api"
+	"github.com/durable_oss/durablecompose/pkg/compose"
+	"github.com/durable_oss/durablecompose/pkg/utils"
 )
 
 // composeOptions hold options common to `up` and `run` to run compose project

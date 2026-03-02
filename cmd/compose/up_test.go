@@ -22,7 +22,7 @@ import (
 	"github.com/compose-spec/compose-go/v2/types"
 	"gotest.tools/v3/assert"
 
-	"github.com/docker/compose/v5/pkg/api"
+	"github.com/durable_oss/durablecompose/pkg/api"
 )
 
 func TestApplyScaleOpt(t *testing.T) {

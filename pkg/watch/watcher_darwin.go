@@ -27,7 +27,7 @@ import (
 
 	"github.com/fsnotify/fsevents"
 
-	pathutil "github.com/docker/compose/v5/internal/paths"
+	pathutil "github.com/durable_oss/durablecompose/internal/paths"
 )
 
 // A file watcher optimized for Darwin.

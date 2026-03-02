@@ -35,7 +35,7 @@ import (
 	sdktrace "go.opentelemetry.io/otel/sdk/trace"
 	semconv "go.opentelemetry.io/otel/semconv/v1.21.0"
 
-	"github.com/docker/compose/v5/internal"
+	"github.com/durable_oss/durablecompose/internal"
 )
 
 func init() {

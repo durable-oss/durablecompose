@@ -28,7 +28,7 @@ import (
 	"github.com/moby/patternmatcher"
 	"github.com/moby/patternmatcher/ignorefile"
 
-	"github.com/docker/compose/v5/internal/paths"
+	"github.com/durable_oss/durablecompose/internal/paths"
 )
 
 type dockerPathMatcher struct {

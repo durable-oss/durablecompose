@@ -22,7 +22,7 @@ Once you have the prerequisites installed, you can build the CLI using:
 make
 ```
 
-This will output a `docker-compose` CLI plugin for your host machine in
+This will output a `durablecompose` binary for your host machine in
 `./bin/build`.
 
 You can statically cross compile the CLI for Windows, macOS, and Linux using the
@@ -92,4 +92,4 @@ To create a new release:
 
 This will automatically create a new tag, release and make binaries for
 Windows, macOS, and Linux available for download on the
-[releases page](https://github.com/docker/compose/releases).
+[releases page](https://github.com/durable_oss/durablecompose/releases).

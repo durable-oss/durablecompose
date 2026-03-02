@@ -26,7 +26,7 @@ import (
 	"go.uber.org/mock/gomock"
 	"gotest.tools/v3/assert"
 
-	compose "github.com/docker/compose/v5/pkg/api"
+	compose "github.com/durable_oss/durablecompose/pkg/api"
 )
 
 func TestPs(t *testing.T) {

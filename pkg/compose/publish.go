@@ -37,9 +37,9 @@ import (
 	v1 "github.com/opencontainers/image-spec/specs-go/v1"
 	"github.com/sirupsen/logrus"
 
-	"github.com/docker/compose/v5/internal/oci"
-	"github.com/docker/compose/v5/pkg/api"
-	"github.com/docker/compose/v5/pkg/compose/transform"
+	"github.com/durable_oss/durablecompose/internal/oci"
+	"github.com/durable_oss/durablecompose/pkg/api"
+	"github.com/durable_oss/durablecompose/pkg/compose/transform"
 )
 
 func (s *composeService) Publish(ctx context.Context, project *types.Project, repository string, options api.PublishOptions) error {

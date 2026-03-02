@@ -32,8 +32,8 @@ import (
 	"github.com/moby/moby/client"
 	"golang.org/x/sync/errgroup"
 
-	"github.com/docker/compose/v5/internal/registry"
-	"github.com/docker/compose/v5/pkg/api"
+	"github.com/durable_oss/durablecompose/internal/registry"
+	"github.com/durable_oss/durablecompose/pkg/api"
 )
 
 func (s *composeService) Push(ctx context.Context, project *types.Project, options api.PushOptions) error {

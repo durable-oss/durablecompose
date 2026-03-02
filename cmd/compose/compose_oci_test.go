@@ -22,7 +22,7 @@ import (
 	"go.uber.org/mock/gomock"
 	"gotest.tools/v3/assert"
 
-	"github.com/docker/compose/v5/pkg/mocks"
+	"github.com/durable_oss/durablecompose/pkg/mocks"
 )
 
 func TestSetEnvWithDotEnv_WithOCIArtifact(t *testing.T) {

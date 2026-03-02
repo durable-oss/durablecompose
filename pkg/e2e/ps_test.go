@@ -25,7 +25,7 @@ import (
 	"github.com/stretchr/testify/require"
 	"gotest.tools/v3/icmd"
 
-	"github.com/docker/compose/v5/pkg/api"
+	"github.com/durable_oss/durablecompose/pkg/api"
 )
 
 func TestPs(t *testing.T) {

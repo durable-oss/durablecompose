@@ -30,7 +30,7 @@ import (
 	"github.com/stretchr/testify/require"
 	"go.uber.org/mock/gomock"
 
-	"github.com/docker/compose/v5/pkg/mocks"
+	"github.com/durable_oss/durablecompose/pkg/mocks"
 )
 
 func TestApplyPlatforms_InferFromRuntime(t *testing.T) {

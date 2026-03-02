@@ -25,7 +25,7 @@ import (
 	"github.com/moby/moby/client"
 	"golang.org/x/sync/errgroup"
 
-	"github.com/docker/compose/v5/pkg/api"
+	"github.com/durable_oss/durablecompose/pkg/api"
 )
 
 func (s *composeService) Remove(ctx context.Context, projectName string, options api.RemoveOptions) error {

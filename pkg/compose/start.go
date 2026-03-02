@@ -25,7 +25,7 @@ import (
 	"github.com/compose-spec/compose-go/v2/types"
 	"github.com/moby/moby/client"
 
-	"github.com/docker/compose/v5/pkg/api"
+	"github.com/durable_oss/durablecompose/pkg/api"
 )
 
 func (s *composeService) Start(ctx context.Context, projectName string, options api.StartOptions) error {

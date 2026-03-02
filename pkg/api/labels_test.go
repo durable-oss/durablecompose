@@ -22,7 +22,7 @@ import (
 	"github.com/hashicorp/go-version"
 	"gotest.tools/v3/assert"
 
-	"github.com/docker/compose/v5/internal"
+	"github.com/durable_oss/durablecompose/internal"
 )
 
 func TestComposeVersionInitialization(t *testing.T) {

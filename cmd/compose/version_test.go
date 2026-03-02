@@ -24,8 +24,8 @@ import (
 	"go.uber.org/mock/gomock"
 	"gotest.tools/v3/assert"
 
-	"github.com/docker/compose/v5/internal"
-	"github.com/docker/compose/v5/pkg/mocks"
+	"github.com/durable_oss/durablecompose/internal"
+	"github.com/durable_oss/durablecompose/pkg/mocks"
 )
 
 func TestVersionCommand(t *testing.T) {
@@ -43,7 +43,7 @@ func TestVersionCommand(t *testing.T) {
 		{
 			name: "default",
 			args: []string{},
-			want: "Docker Compose version v9.9.9-test\n",
+			want: "DurableCompose version v9.9.9-test\nA product of Durable Programming - https://durableprogramming.com\n",
 		},
 		{
 			name: "short flag",
@@ -53,7 +53,7 @@ func TestVersionCommand(t *testing.T) {
 		{
 			name: "json flag",
 			args: []string{"--format", "json"},
-			want: `{"version":"v9.9.9-test"}` + "\n",
+			want: `{"version":"v9.9.9-test","product":"DurableCompose","vendor":"Durable Programming"}` + "\n",
 		},
 	}
 

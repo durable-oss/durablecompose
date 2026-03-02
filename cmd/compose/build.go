@@ -28,9 +28,9 @@ import (
 	cliopts "github.com/docker/cli/opts"
 	"github.com/spf13/cobra"
 
-	"github.com/docker/compose/v5/cmd/display"
-	"github.com/docker/compose/v5/pkg/api"
-	"github.com/docker/compose/v5/pkg/compose"
+	"github.com/durable_oss/durablecompose/cmd/display"
+	"github.com/durable_oss/durablecompose/pkg/api"
+	"github.com/durable_oss/durablecompose/pkg/compose"
 )
 
 type buildOptions struct {

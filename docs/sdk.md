@@ -1,13 +1,13 @@
-# Using the `docker/compose` SDK
+# Using the DurableCompose SDK
 
-The `docker/compose` package can be used as a Go library by third-party applications to programmatically manage
+The `durablecompose` package can be used as a Go library by third-party applications to programmatically manage
 containerized applications defined in Compose files. This SDK provides a comprehensive API that lets you
 integrate Compose functionality directly into your applications, allowing you to load, validate, and manage
-multi-container environments without relying on the Compose CLI. 
+multi-container environments without relying on the Compose CLI.
 
 Whether you need to orchestrate containers as part of
 a deployment pipeline, build custom management tools, or embed container orchestration into your application, the
-Compose SDK offers the same powerful capabilities that drive the Docker Compose command-line tool.
+Compose SDK offers the same powerful capabilities that drive the DurableCompose command-line tool.
 
 ## Set up the SDK
 
@@ -30,8 +30,8 @@ import (
 
     "github.com/docker/cli/cli/command"
     "github.com/docker/cli/cli/flags"
-    "github.com/docker/compose/v5/pkg/api"
-    "github.com/docker/compose/v5/pkg/compose"
+    "github.com/durable_oss/durablecompose/pkg/api"
+    "github.com/durable_oss/durablecompose/pkg/compose"
 )
 
 func main() {
@@ -154,4 +154,4 @@ The SDK provides three ready-to-use `EventProcessor` implementations:
 - `progress.NewJSONWriter()` - Render events as JSON objects
 - `progress.NewQuietWriter()` - (Default) Silently processes events without producing any output
 
-Using `EventProcessor`, a custom UI can be plugged into `docker/compose`.
+Using `EventProcessor`, a custom UI can be plugged into `durablecompose`.

@@ -36,7 +36,7 @@ import (
 	"gotest.tools/v3/icmd"
 	"gotest.tools/v3/poll"
 
-	"github.com/docker/compose/v5/cmd/compose"
+	"github.com/durable_oss/durablecompose/cmd/compose"
 )
 
 var (

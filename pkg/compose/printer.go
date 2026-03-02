@@ -19,7 +19,7 @@ package compose
 import (
 	"fmt"
 
-	"github.com/docker/compose/v5/pkg/api"
+	"github.com/durable_oss/durablecompose/pkg/api"
 )
 
 // logPrinter watch application containers and collect their logs
