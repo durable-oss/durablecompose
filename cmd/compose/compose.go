@@ -49,6 +49,7 @@ import (
 	"github.com/durable_oss/durablecompose/internal/tracing"
 	"github.com/durable_oss/durablecompose/pkg/api"
 	"github.com/durable_oss/durablecompose/pkg/compose"
+	"github.com/durable_oss/durablecompose/pkg/config"
 	"github.com/durable_oss/durablecompose/pkg/remote"
 	"github.com/durable_oss/durablecompose/pkg/utils"
 )
@@ -384,6 +385,26 @@ func (o *ProjectOptions) toProjectOptions(po ...cli.ProjectOptionsFn) (*cli.Proj
 		}
 	}
 
+	// Try to load durablecompose.toml configuration
+	workDir := o.ProjectDir
+	if workDir == "" {
+		if pwd, err := os.Getwd(); err == nil {
+			workDir = pwd
+		}
+	}
+
+	var durableConfig *config.DurableComposeConfig
+	if workDir != "" {
+		// Load durablecompose.toml if it exists (optional)
+		cfg, err := config.LoadDurableComposeConfigFromDir(workDir)
+		if err == nil {
+			durableConfig = cfg
+			// Apply durablecompose.toml settings before other options
+			opts = cfg.ApplyToProjectOptions(opts)
+		}
+		// Ignore errors - durablecompose.toml is optional
+	}
+
 	opts = append(opts,
 		// Load PWD/.env if present and no explicit --env-file has been set
 		cli.WithEnvFiles(o.EnvFiles...),
@@ -401,7 +422,13 @@ func (o *ProjectOptions) toProjectOptions(po ...cli.ProjectOptionsFn) (*cli.Proj
 		cli.WithName(o.ProjectName),
 	)
 
-	return cli.NewProjectOptions(o.ConfigPaths, append(po, opts...)...)
+	// Filter config paths if durablecompose.toml specifies file filters
+	configPaths := o.ConfigPaths
+	if durableConfig != nil {
+		configPaths = durableConfig.FilterComposeFiles(configPaths)
+	}
+
+	return cli.NewProjectOptions(configPaths, append(po, opts...)...)
 }
 
 // PluginName is the name of the plugin

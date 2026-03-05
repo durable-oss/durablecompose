@@ -1,0 +1,131 @@
+# durablecompose.toml - Configuration file for DurableCompose
+# This file allows you to configure DurableCompose behavior, define services,
+# and control how compose files are loaded.
+
+# Project-level configuration
+[project]
+# Name of the project (overrides directory-based naming)
+name = "my-app"
+
+# Default profiles to enable
+profiles = ["dev", "monitoring"]
+
+# Working directory for compose operations
+work_dir = "/workspace"
+
+# Environment files to load by default
+env_files = [".env", ".env.local"]
+
+# Loader configuration - control how compose files are discovered and loaded
+[loader]
+# Enable only specific file types (extensions without the dot)
+enabled_file_types = ["yaml", "yml"]
+
+# Disable specific file types
+disabled_file_types = ["json"]
+
+# Custom file patterns to match (glob patterns)
+file_patterns = ["*.compose.yml", "compose.*.yaml", "docker-compose*.yml"]
+
+# Explicitly include specific files
+include_files = ["docker-compose.yml", "docker-compose.dev.yml"]
+
+# Explicitly exclude specific files (takes precedence over includes)
+exclude_files = ["docker-compose.override.yml", "*.local.yml"]
+
+# Additional directories to search for compose files
+search_paths = ["./services", "./configs", "./deployments"]
+
+# Service-specific configuration
+# You can define or extend service configurations here
+[services.web]
+# Extend configuration from another service or file
+extends = "base-web"
+extends_file = "services/base.toml"
+
+# Environment variables specific to this service
+[services.web.environment]
+PORT = "8080"
+DEBUG = "true"
+LOG_LEVEL = "info"
+
+# Build configuration overrides
+[services.web.build]
+context = "./web"
+dockerfile = "Dockerfile.dev"
+target = "development"
+
+[services.web.build.args]
+NODE_VERSION = "18"
+NPM_VERSION = "9"
+
+# Additional compose files to include for this service
+compose_files = ["web.compose.yml"]
+
+# Another service example
+[services.api]
+extends = "base-api"
+
+[services.api.environment]
+DATABASE_URL = "postgres://localhost:5432/mydb"
+REDIS_URL = "redis://localhost:6379"
+# You can use Jinja2-style template interpolation in environment variables
+# For example, to get the IP address of another service:
+# WEB_SERVICE_IP = "{{ service_ip('web') }}"
+
+[services.api.build]
+context = "./api"
+dockerfile = "Dockerfile"
+target = "production"
+
+[services.api.build.args]
+GO_VERSION = "1.21"
+
+# Custom builders configuration (for future extensibility)
+[builders.custom-buildkit]
+type = "buildkit"
+
+[builders.custom-buildkit.options]
+# Builder-specific options can be defined here
+cache_from = ["type=registry,ref=myregistry.com/cache"]
+cache_to = ["type=inline"]
+
+[builders.docker]
+type = "docker"
+
+[builders.docker.options]
+# Docker-specific build options
+buildkit = true
+
+# Raw processes configuration - run processes without Docker containers
+[processes]
+# Enable raw process execution
+enabled = true
+
+# Optional: Load processes from a Procfile
+procfile_path = "Procfile"
+
+# Default working directory for all processes
+working_dir = "."
+
+# Default environment variables for all processes
+[processes.environment]
+NODE_ENV = "development"
+LOG_LEVEL = "debug"
+
+# Inline process definitions (can override Procfile entries)
+[processes.definitions.dev-server]
+command = "npm run dev"
+working_dir = "./frontend"
+
+[processes.definitions.dev-server.environment]
+PORT = "3000"
+HOT_RELOAD = "true"
+
+[processes.definitions.background-worker]
+command = "python worker.py"
+working_dir = "./backend"
+
+[processes.definitions.background-worker.environment]
+QUEUE_URL = "redis://localhost:6379"
+WORKER_THREADS = "4"
